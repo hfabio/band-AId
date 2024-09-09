@@ -1,0 +1,29 @@
+[funcionalidade]
+- adicionar log ao UsageAI
+- fazer front-end básico para testes alpha
+
+- adicionar flag para fazer tts
+- adicionar transcription
+
+- login / validação
+  - adicionar tabela de usuário
+- checagem de limite de uso
+- melhorar prompt (ainda está inconsistente)
+- arrumar cors
+
+- adicionar testes automatizados
+
+[infra]
+- dockerfile
+- docker-compose
+
+
+[implementações futuras]
+- para o óculos inteligente funcionar:
+  - adicionar microfone no óculos
+    - fazer transcription
+  - adicionar câmera no óculos
+    - tirar foto do exame
+  - adicionar alto-falante no óculos
+      - falar pelo óculos o resultado do completion
+
