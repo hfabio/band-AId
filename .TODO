@@ -16,6 +16,7 @@
 [infra]
 - dockerfile
 - docker-compose
+- gh actions para o deploy
 
 
 [implementações futuras]
