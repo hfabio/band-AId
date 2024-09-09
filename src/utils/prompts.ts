@@ -21,9 +21,19 @@ caso você tenha observações relevantes, para cada possível diagnóstico voc�
 - comment: descreva o possível problema objetivamente preferencialmente em uma sentença curta sem incluir pedidos de exames.
 - security: adicione o nível de gravidade para a segurança do paciente do que foi observado
 - support_exams: indique, caso seja necessário e ordenado pela relevância de prognóstico, exames de apoio para o caso do paciente. Não indique tratamentos.
+- reason: descreva brevemente os sinais/pontos que o levou a perceber o problema descrito no comment
+${false ? '- image_points: caso haja na imagem a possibilidade de apontar uma região para demonstrar médico passe as coordenadas em pares para que seja desenhado um retângulo [[Xi,Yi],[Xj,Yj]] onde i seria a coordenada do ponto superior esquerdo do retângulo e j seria a coordenada do canto inferior direito.' : ''}
 
 exemplo de uma imagem de cardiograma submetida e foi detectada uma fibrilação atrial:
-{"action": [{"score": 100, "comment": "Presença de fibrilação atrial", "security": "grave", "support_exams": ["eletrocardiograma"] }]}
+{"action": [
+  {
+  "score": 100,
+  "comment": "Presença de fibrilação atrial",
+  "reason": "Ritmo irregular, Ausência de ondas p em derivação D II. e Frequência dos átrios diferente da frequência dos ventrículos.",
+  "security": "grave",
+  "support_exams": ["eletrocardiograma"],
+  ${false ? '"image_points": [{"description": "ritmo irregular", "coord": [[120, 90], [200, 120]]}]' : ''}
+  }]}
 `
   },
   image && {
