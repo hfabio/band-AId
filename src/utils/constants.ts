@@ -6,6 +6,7 @@ export const voices = {
 
 export const models = {
   completions: 'gpt-4o-mini',
+  // completions: 'o1-mini',
   audio: 'tts-1',
   transcription: 'whisper-1',
 }

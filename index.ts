@@ -14,7 +14,34 @@ app.use(async(req, res, next) => {
 })
 app.use(routes);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.clear();
   console.log(`listening on port ${port}`)
 })
+
+process.on('uncaughtException', (error, origin) => {
+  console.log(`\n${origin} signal received. \n${error}`)
+})
+
+process.on('unhandledRejection', (error) => {
+  console.log(`\nunhandledRejection signal received. \n${error}`)
+})
+
+const gracefulShutdown = (event: string) => {
+  return () => {
+    console.log(`\n${event} received`);
+    server.getConnections((err, count) => {
+      if (err) console.log('error getting connections', err);
+      console.log(`current connections to the server: ${count}`)
+      if (!count) process.exit(0);
+
+      console.log(`Gracefully shutting down the application`);
+      server.close((error) => {
+        if (error) console.log(`\nError closing server\n${error}\n`)
+        process.exit(0);
+      });
+    })
+  }
+}
+
+['SIGINT', 'SIGTERM'].forEach(event => process.on(event, gracefulShutdown(event)));
