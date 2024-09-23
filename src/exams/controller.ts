@@ -1,7 +1,6 @@
 import { getGoogleExamOverviewPrompt, getOpenAIExamOverviewPrompt } from "../utils/prompts";
 import { validateVerifyExamPayload } from "./validators";
 import { prompt } from "../utils/AdapterAi";
-import { ChatCompletion } from "openai/resources/index.mjs";
 import { Request, Response, NextFunction } from "express";
 
 export default {
@@ -10,10 +9,12 @@ export default {
       const {data, error} = validateVerifyExamPayload.safeParse({
         image: req.body.image,
         prompt: req.body.prompt,
+        provider: req.body.provider
       });
       if(error) throw new Error(error.toString());
       let result;
-      if (process.env.PROVIDER === 'openai') {
+      console.log({ provider: data.provider })
+      if (process.env.PROVIDER === 'openai' || data.provider === 'openai') {
         const messages = await getOpenAIExamOverviewPrompt(data);
         result = await prompt({
           provider: 'openai',
